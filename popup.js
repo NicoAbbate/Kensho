@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const translateConfirmBtn = document.getElementById('translate-confirm-btn');
     const translateCancelBtn = document.getElementById('translate-cancel-btn');
 
-    const serverUrl = 'https://kensho-extension-backend.onrender.com/api/process'; // <-- PASTE YOUR URL HERE
+    const serverUrl = 'https://kensho-backend.onrender.com/api/process'; // <-- PASTE YOUR URL HERE
 
     function sendRequest(action) {
         const textToProcess = textInput.value.trim();
