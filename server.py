@@ -1,4 +1,23 @@
-@app.route('/api/process', methods=['POST'])
+import os
+import requests
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import openai
+
+# --- SETUP (This is the part I missed) ---
+app = Flask(__name__)
+CORS(app)
+
+# Set the OpenAI API key
+try:
+    openai.api_key = os.environ["OPENAI_API_KEY"]
+except KeyError:
+    # Fallback for local testing if the environment variable isn't set.
+    # In production on Render, it will always use the environment variable.
+    print("Warning: OPENAI_API_KEY environment variable not set.")
+    pass
+
+# --- THE MAIN FUNCTION ---
 @app.route('/api/process', methods=['POST'])
 def process_text():
     data = request.get_json()
@@ -10,7 +29,6 @@ def process_text():
     
     if action.startswith("translate-"):
         lang_code = action.split('-')[1]
-        # UPDATED LANGUAGE MAP
         language_map = {
             "en": "English", "zh": "Chinese (Mandarin)", "hi": "Hindi", "es": "Spanish",
             "fr": "French", "ar": "Arabic (Standard)", "bn": "Bengali", "ru": "Russian",
@@ -54,4 +72,9 @@ def process_text():
         ai_result = response.choices[0].message.content.strip()
         return jsonify({"result": ai_result})
     except Exception as e:
+        print(f"OpenAI Error: {e}")
         return jsonify({"error": str(e)}), 500
+
+# --- RUN FOR LOCAL TESTING (This part is ignored by Gunicorn on Render) ---
+if __name__ == '__main__':
+    app.run(port=5000, debug=True)
