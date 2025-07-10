@@ -55,13 +55,16 @@ def process_text():
             return jsonify({"result": f"Could not find synonyms for '{text_to_process}'."})
     else:
         prompt_map = {
+            # ADD THIS NEW ACTION
+            "ask": text_to_process, 
+
             "explain": f"Explain the following concept simply: \"{text_to_process}\"",
             "define": f"Provide a one-sentence dictionary-style definition for: \"{text_to_process}\"",
             "summarize": f"Summarize the key points of the following text into a few bullet points: \"{text_to_process}\"",
             "proofread": f"Proofread the following text. Correct any spelling and grammar errors, but do not change the meaning. Return only the corrected text: \"{text_to_process}\"",
             "professional": f"Rewrite the following text to sound more formal and professional, suitable for a business email or corporate document: \"{text_to_process}\""
         }
-        prompt = prompt_map.get(action, prompt_map["explain"])
+        prompt = prompt_map.get(action, text_to_process) # Default to a simple "ask"
 
     try:
         response = openai.chat.completions.create(
