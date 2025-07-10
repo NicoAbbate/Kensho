@@ -1,0 +1,32 @@
+{
+    "manifest_version": 3,
+    "name": "Kenshō",
+    "version": "1.0.0",
+    "description": "An AI-powered assistant to explain, define, and summarize highlighted text.",
+    "permissions": ["storage", "contextMenus"],
+    "icons": {
+        "16": "images/icon16.png",
+        "48": "images/icon48.png",
+        "128": "images/icon128.png"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ],
+    "action": {
+        "default_icon": "images/icon48.png",
+        "default_title": "Kenshō",
+        "default_popup": "popup.html"
+    },
+    "web_accessible_resources": [
+        {
+          "resources": ["about.html", "about.css"],
+          "matches": ["<all_urls>"]
+        }
+    ]
+}
