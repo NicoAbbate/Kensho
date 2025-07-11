@@ -57,7 +57,7 @@ def process_text():
     # This is a dictionary that maps an 'action' to a specific 'prompt' for the AI.
     prompt_map = {
         # NEW RECIPE FEATURE
-        "recipe": f"Analyze the following text. If it contains a recipe, extract it and format it clearly with headings for 'Ingredients' and 'Instructions'. Use markdown lists for both sections. If no recipe is found, respond with the single sentence: 'No recipe found in the selected text.' Text: \"{text_to_process}\"",
+        "recipe": f"Analyze the following text. If it contains a recipe, extract it and format it clearly with headings for 'Title', 'Ingredients' and 'Instructions'. Use markdown lists for both sections. If no recipe is found, respond with the single sentence: 'No recipe found in the selected text.' Text: \"{text_to_process}\"",
         
         "ask": text_to_process,
         "explain": f"Explain the following concept simply: \"{text_to_process}\"",
